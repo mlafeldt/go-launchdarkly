@@ -2,8 +2,9 @@ build:
 	go get -d -t -v ./...
 	go build ./...
 
-generate:
+generate: swagger.json
 	$(RM) -r client models
-	swagger generate client \
-		--name launchdarkly_api \
-		--spec $(GOPATH)/src/github.com/launchdarkly/ld-openapi/targets/swagger.json
+	swagger generate client --name launchdarkly_api --spec $<
+
+swagger.json:
+	cp $(GOPATH)/src/github.com/launchdarkly/ld-openapi/targets/swagger.json $@
