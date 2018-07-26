@@ -9,5 +9,6 @@ generate: swagger.json
 		-w /go/src/github.com/mlafeldt/go-launchdarkly \
 		quay.io/goswagger/swagger generate client --name launchdarkly --spec $<
 
+# The published spec is outdated, see https://github.com/launchdarkly/ld-openapi/issues/2
 swagger.json:
 	cp $(GOPATH)/src/github.com/launchdarkly/ld-openapi/targets/swagger.json $@
