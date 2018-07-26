@@ -1,6 +1,14 @@
 version: 2
 
 jobs:
+  generate:
+    docker:
+      - image: quay.io/goswagger/swagger
+    working_directory: /go/src/github.com/mlafeldt/go-launchdarkly
+    steps:
+      - checkout
+      - run: make generate
+
   build:
     docker:
       - image: circleci/golang:1.10
@@ -8,3 +16,10 @@ jobs:
     steps:
       - checkout
       - run: make build
+
+workflows:
+  version: 2
+  generate_and_build:
+    jobs:
+      - generate
+      - build
