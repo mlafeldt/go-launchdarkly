@@ -1,6 +1,6 @@
-# LaunchDarkly API client for Go
+# go-launchdarkly
 
-[![GoDoc](https://godoc.org/github.com/mlafeldt/launchdarkly-api-client?status.svg)](https://godoc.org/github.com/mlafeldt/launchdarkly-api-client)
+[![GoDoc](https://godoc.org/github.com/mlafeldt/go-launchdarkly?status.svg)](https://godoc.org/github.com/mlafeldt/go-launchdarkly)
 
 This repository contains a Go client library for LaunchDarkly's REST API.
 

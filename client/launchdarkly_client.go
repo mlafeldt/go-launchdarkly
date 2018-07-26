@@ -11,17 +11,17 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/mlafeldt/launchdarkly-api-client/client/audit_log"
-	"github.com/mlafeldt/launchdarkly-api-client/client/custom_roles"
-	"github.com/mlafeldt/launchdarkly-api-client/client/environments"
-	"github.com/mlafeldt/launchdarkly-api-client/client/feature_flags"
-	"github.com/mlafeldt/launchdarkly-api-client/client/projects"
-	"github.com/mlafeldt/launchdarkly-api-client/client/root"
-	"github.com/mlafeldt/launchdarkly-api-client/client/team_members"
-	"github.com/mlafeldt/launchdarkly-api-client/client/user_segments"
-	"github.com/mlafeldt/launchdarkly-api-client/client/user_settings"
-	"github.com/mlafeldt/launchdarkly-api-client/client/users"
-	"github.com/mlafeldt/launchdarkly-api-client/client/webhooks"
+	"github.com/mlafeldt/go-launchdarkly/client/audit_log"
+	"github.com/mlafeldt/go-launchdarkly/client/custom_roles"
+	"github.com/mlafeldt/go-launchdarkly/client/environments"
+	"github.com/mlafeldt/go-launchdarkly/client/feature_flags"
+	"github.com/mlafeldt/go-launchdarkly/client/projects"
+	"github.com/mlafeldt/go-launchdarkly/client/root"
+	"github.com/mlafeldt/go-launchdarkly/client/team_members"
+	"github.com/mlafeldt/go-launchdarkly/client/user_segments"
+	"github.com/mlafeldt/go-launchdarkly/client/user_settings"
+	"github.com/mlafeldt/go-launchdarkly/client/users"
+	"github.com/mlafeldt/go-launchdarkly/client/webhooks"
 )
 
 // Default launchdarkly HTTP client.

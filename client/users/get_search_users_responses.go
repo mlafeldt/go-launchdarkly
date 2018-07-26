@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/mlafeldt/launchdarkly-api-client/models"
+	models "github.com/mlafeldt/go-launchdarkly/models"
 )
 
 // GetSearchUsersReader is a Reader for the GetSearchUsers structure.
