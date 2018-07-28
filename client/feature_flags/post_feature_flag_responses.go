@@ -150,6 +150,9 @@ swagger:model PostFeatureFlagBody
 */
 type PostFeatureFlagBody struct {
 
+	// A description of the feature flag.
+	Description string `json:"description,omitempty"`
+
 	// Whether or not this flag should be made available to the client-side JavaScript SDK.
 	IncludeInSnippet bool `json:"includeInSnippet,omitempty"`
 
