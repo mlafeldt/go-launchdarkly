@@ -7,6 +7,7 @@ package feature_flags
 
 import (
 	"fmt"
+	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,16 +69,24 @@ func NewPostFeatureFlagCreated() *PostFeatureFlagCreated {
 
 /*PostFeatureFlagCreated handles this case with default header values.
 
-Resource created.
+Flag response.
 */
 type PostFeatureFlagCreated struct {
+	Payload *models.FeatureFlag
 }
 
 func (o *PostFeatureFlagCreated) Error() string {
-	return fmt.Sprintf("[POST /flags/{projectKey}][%d] postFeatureFlagCreated ", 201)
+	return fmt.Sprintf("[POST /flags/{projectKey}][%d] postFeatureFlagCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostFeatureFlagCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.FeatureFlag)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -45,6 +45,9 @@ type Environment struct {
 
 	// Determines if this environment is in safe mode.
 	SecureMode bool `json:"secureMode,omitempty"`
+
+	// An array of tags for this environment.
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this environment

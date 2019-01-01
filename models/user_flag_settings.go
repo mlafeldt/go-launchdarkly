@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UserFlagSettings user flag settings
@@ -20,7 +21,7 @@ type UserFlagSettings struct {
 	Links *Links `json:"_links,omitempty"`
 
 	// items
-	Items interface{} `json:"items,omitempty"`
+	Items map[string]UserFlagSetting `json:"items,omitempty"`
 }
 
 // Validate validates this user flag settings
@@ -28,6 +29,10 @@ func (m *UserFlagSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateLinks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateItems(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,6 +55,28 @@ func (m *UserFlagSettings) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *UserFlagSettings) validateItems(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Items) { // not required
+		return nil
+	}
+
+	for k := range m.Items {
+
+		if err := validate.Required("items"+"."+k, "body", m.Items[k]); err != nil {
+			return err
+		}
+		if val, ok := m.Items[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

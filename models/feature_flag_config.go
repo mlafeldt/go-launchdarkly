@@ -24,6 +24,9 @@ type FeatureFlagConfig struct {
 	// fallthrough
 	Fallthrough *Fallthrough `json:"fallthrough,omitempty"`
 
+	// goal ids
+	GoalIds []string `json:"goalIds"`
+
 	// last modified
 	LastModified int64 `json:"lastModified,omitempty"`
 

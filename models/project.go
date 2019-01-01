@@ -32,6 +32,9 @@ type Project struct {
 
 	// name
 	Name string `json:"name,omitempty"`
+
+	// An array of tags for this project.
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this project

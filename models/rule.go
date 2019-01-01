@@ -18,6 +18,9 @@ import (
 // swagger:model Rule
 type Rule struct {
 
+	// id
+	ID string `json:"_id,omitempty"`
+
 	// clauses
 	Clauses []*Clause `json:"clauses"`
 

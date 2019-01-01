@@ -16,6 +16,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/mlafeldt/go-launchdarkly/models"
 )
 
 // NewPostEnvironmentParams creates a new PostEnvironmentParams object
@@ -66,7 +68,7 @@ type PostEnvironmentParams struct {
 	  New environment.
 
 	*/
-	EnvironmentBody PostEnvironmentBody
+	EnvironmentBody *models.EnvironmentPost
 	/*ProjectKey
 	  The project key, used to tie the flags together under one project so they can be managed together.
 
@@ -112,13 +114,13 @@ func (o *PostEnvironmentParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithEnvironmentBody adds the environmentBody to the post environment params
-func (o *PostEnvironmentParams) WithEnvironmentBody(environmentBody PostEnvironmentBody) *PostEnvironmentParams {
+func (o *PostEnvironmentParams) WithEnvironmentBody(environmentBody *models.EnvironmentPost) *PostEnvironmentParams {
 	o.SetEnvironmentBody(environmentBody)
 	return o
 }
 
 // SetEnvironmentBody adds the environmentBody to the post environment params
-func (o *PostEnvironmentParams) SetEnvironmentBody(environmentBody PostEnvironmentBody) {
+func (o *PostEnvironmentParams) SetEnvironmentBody(environmentBody *models.EnvironmentPost) {
 	o.EnvironmentBody = environmentBody
 }
 
@@ -141,8 +143,10 @@ func (o *PostEnvironmentParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	}
 	var res []error
 
-	if err := r.SetBodyParam(o.EnvironmentBody); err != nil {
-		return err
+	if o.EnvironmentBody != nil {
+		if err := r.SetBodyParam(o.EnvironmentBody); err != nil {
+			return err
+		}
 	}
 
 	// path param projectKey

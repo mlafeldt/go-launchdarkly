@@ -25,8 +25,14 @@ type FeatureFlag struct {
 	// maintainer
 	Maintainer *Member `json:"_maintainer,omitempty"`
 
+	// version
+	Version int64 `json:"_version,omitempty"`
+
 	// A unix epoch time in milliseconds specifying the creation time of this flag.
 	CreationDate int64 `json:"creationDate,omitempty"`
+
+	// custom properties
+	CustomProperties CustomProperties `json:"customProperties"`
 
 	// Description of the feature flag.
 	Description string `json:"description,omitempty"`
@@ -68,6 +74,10 @@ func (m *FeatureFlag) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMaintainer(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCustomProperties(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,6 +126,22 @@ func (m *FeatureFlag) validateMaintainer(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *FeatureFlag) validateCustomProperties(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CustomProperties) { // not required
+		return nil
+	}
+
+	if err := m.CustomProperties.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("customProperties")
+		}
+		return err
 	}
 
 	return nil
