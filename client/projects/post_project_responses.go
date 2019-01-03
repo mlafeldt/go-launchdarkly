@@ -7,6 +7,7 @@ package projects
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
@@ -14,6 +15,8 @@ import (
 	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/mlafeldt/go-launchdarkly/models"
 )
 
 // PostProjectReader is a Reader for the PostProject structure.
@@ -147,6 +150,10 @@ swagger:model PostProjectBody
 */
 type PostProjectBody struct {
 
+	// environments
+	// Min Length: 1
+	Environments []*models.EnvironmentPost `json:"environments"`
+
 	// key
 	// Required: true
 	Key *string `json:"key"`
@@ -160,6 +167,10 @@ type PostProjectBody struct {
 func (o *PostProjectBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := o.validateEnvironments(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := o.validateKey(formats); err != nil {
 		res = append(res, err)
 	}
@@ -171,6 +182,31 @@ func (o *PostProjectBody) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (o *PostProjectBody) validateEnvironments(formats strfmt.Registry) error {
+
+	if swag.IsZero(o.Environments) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.Environments); i++ {
+		if swag.IsZero(o.Environments[i]) { // not required
+			continue
+		}
+
+		if o.Environments[i] != nil {
+			if err := o.Environments[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("projectBody" + "." + "environments" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

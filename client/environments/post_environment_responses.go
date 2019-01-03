@@ -8,10 +8,7 @@ package environments
 import (
 	"fmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -139,93 +136,5 @@ func (o *PostEnvironmentConflict) Error() string {
 
 func (o *PostEnvironmentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	return nil
-}
-
-/*PostEnvironmentBody post environment body
-swagger:model PostEnvironmentBody
-*/
-type PostEnvironmentBody struct {
-
-	// A color swatch (as an RGB hex value with no leading '#', e.g. C8C8C8).
-	// Required: true
-	Color *string `json:"color"`
-
-	// The default TTL for the new environment.
-	DefaultTTL float64 `json:"defaultTtl,omitempty"`
-
-	// A project-unique key for the new environment.
-	// Required: true
-	Key *string `json:"key"`
-
-	// The name of the new environment.
-	// Required: true
-	Name *string `json:"name"`
-}
-
-// Validate validates this post environment body
-func (o *PostEnvironmentBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateColor(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateKey(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PostEnvironmentBody) validateColor(formats strfmt.Registry) error {
-
-	if err := validate.Required("environmentBody"+"."+"color", "body", o.Color); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *PostEnvironmentBody) validateKey(formats strfmt.Registry) error {
-
-	if err := validate.Required("environmentBody"+"."+"key", "body", o.Key); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *PostEnvironmentBody) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("environmentBody"+"."+"name", "body", o.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PostEnvironmentBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PostEnvironmentBody) UnmarshalBinary(b []byte) error {
-	var res PostEnvironmentBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

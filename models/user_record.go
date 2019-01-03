@@ -23,7 +23,7 @@ type UserRecord struct {
 	EnvironmentID string `json:"environmentId,omitempty"`
 
 	// last ping
-	LastPing int64 `json:"lastPing,omitempty"`
+	LastPing string `json:"lastPing,omitempty"`
 
 	// owner Id
 	OwnerID ID `json:"ownerId,omitempty"`

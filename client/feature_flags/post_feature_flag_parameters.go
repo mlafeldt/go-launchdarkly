@@ -62,6 +62,11 @@ for the post feature flag operation typically these are written to a http.Reques
 */
 type PostFeatureFlagParams struct {
 
+	/*Clone
+	  The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
+
+	*/
+	Clone *string
 	/*FeatureFlagBody
 	  Create a new feature flag.
 
@@ -111,6 +116,17 @@ func (o *PostFeatureFlagParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithClone adds the clone to the post feature flag params
+func (o *PostFeatureFlagParams) WithClone(clone *string) *PostFeatureFlagParams {
+	o.SetClone(clone)
+	return o
+}
+
+// SetClone adds the clone to the post feature flag params
+func (o *PostFeatureFlagParams) SetClone(clone *string) {
+	o.Clone = clone
+}
+
 // WithFeatureFlagBody adds the featureFlagBody to the post feature flag params
 func (o *PostFeatureFlagParams) WithFeatureFlagBody(featureFlagBody PostFeatureFlagBody) *PostFeatureFlagParams {
 	o.SetFeatureFlagBody(featureFlagBody)
@@ -140,6 +156,22 @@ func (o *PostFeatureFlagParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.Clone != nil {
+
+		// query param clone
+		var qrClone string
+		if o.Clone != nil {
+			qrClone = *o.Clone
+		}
+		qClone := qrClone
+		if qClone != "" {
+			if err := r.SetQueryParam("clone", qClone); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if err := r.SetBodyParam(o.FeatureFlagBody); err != nil {
 		return err
